@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-5">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div >
+        <table class="table bg-white" style="border-radius: 20px;">
+          <thead style="margin: 2%;">
+            <tr>
+              <td>ID</td>
+              <td>Nombre Usuario</td>
+              <td>Password</td>
+              <td>Apellido</td>
+              <td>Nombre</td>
+              <td>Email</td>
+              <td>Telefono</td>
+              <td>Fecha Creacion</td>
+            </tr>
+          </thead>
+          <tbody style="margin: 2%;">
+            {% for contact in contacts %}
+            <tr>
+              <td>{{contact.0}}</td>
+              <td>{{contact.1}}</td>
+              <td>{{contact.2}}</td>
+              <td>{{contact.3}}</td>
+              <td>{{contact.4}}</td>
+              <td>{{contact.5}}</td>
+              <td>{{contact.6}}</td>
+              <td>{{contact.7}}</td>
+              <td style="display: flex;flex-direction: row;">
+                <a href="/edit/{{contact.0}}" class="btn btn-secondary">edit</a>
+                <a href="/delete/{{contact.0}}" class="btn btn-danger btn-delete">delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="card card-body">
+        <form action="{{url_for('add_contact')}}" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" name="user_name" placeholder="user_name" #requerid>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="password" placeholder="password">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="apellido" placeholder="apellido">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="nombre" placeholder="nombre">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="email" placeholder="email">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="telefono" placeholder="telefono">
+          </div>
+          <button class="btn btn-primary btn-block">
+            Save 
+          </button>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% endblock %}
